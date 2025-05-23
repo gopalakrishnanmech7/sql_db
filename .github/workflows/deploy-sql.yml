@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy-sql:
-    runs-on: windows-latest
+    runs-on: self-hosted  # Because you're using your own machine as the runner
 
     steps:
       - name: Checkout Repository

@@ -10,9 +10,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Set up job
-        run: echo "Starting job"
-
       - name: Checkout Repository
         uses: actions/checkout@v3
 
@@ -20,10 +17,4 @@ jobs:
         shell: powershell
         run: |
           Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-          sqlcmd -S localhost -d testDB -E -i sql/create_table.sql
-
-      - name: Post Checkout Repository
-        run: echo "SQL Deployment Completed"
-
-      - name: Complete job
-        run: echo "Job completed"
+          sqlcmd -S localhost\SQLEXPRESS -d testDB -E -i sql/create_table.sql

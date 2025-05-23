@@ -3,17 +3,17 @@ name: Deploy SQL to Local SQL Server
 on:
   push:
     branches:
-      - main   # This will run only when code is pushed/merged into 'main'
+      - main
 
 jobs:
   deploy:
-    runs-on: self-hosted   # This tells GitHub to use your local runner
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3   # Clones the repo into the runner machine
+        uses: actions/checkout@v3
 
-      - name: Run SQL Scripts on Local SQL Server
+      - name: Run SQL Scripts on Local SQL Server (Windows Auth)
         run: |
-          sqlcmd -S localhost -d TestDB -U sa -P MyPassword123 -i sql/create_table.sql
-          sqlcmd -S localhost -d TestDB -U sa -P MyPassword123 -i sql/update_data.sql
+          sqlcmd -S localhost -d testDB -E -i sql/create_table.sql
+          sqlcmd -S localhost -d testDB -E -i sql/update_data.sql

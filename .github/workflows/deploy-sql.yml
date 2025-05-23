@@ -1,4 +1,4 @@
-name: Deploy SQL to Local SQL Server
+name: Deploy SQL Scripts
 
 on:
   push:
@@ -6,14 +6,24 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: self-hosted
+  deploy-sql:
+    runs-on: windows-latest
 
     steps:
+      - name: Set up job
+        run: echo "Starting job"
+
       - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Run SQL Scripts on Local SQL Server (Windows Auth)
+        shell: powershell
         run: |
+          Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
           sqlcmd -S localhost -d testDB -E -i sql/create_table.sql
-          sqlcmd -S localhost -d testDB -E -i sql/update_data.sql
+
+      - name: Post Checkout Repository
+        run: echo "SQL Deployment Completed"
+
+      - name: Complete job
+        run: echo "Job completed"

@@ -1,0 +1,19 @@
+name: Deploy SQL to Local SQL Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run SQL Scripts on Local SQL Server (Windows Auth)
+        run: |
+          sqlcmd -S localhost -d testDB -E -i sql/create_table.sql
+          sqlcmd -S localhost -d testDB -E -i sql/update_data.sql

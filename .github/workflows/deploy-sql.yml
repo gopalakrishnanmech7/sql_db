@@ -7,14 +7,13 @@ on:
 
 jobs:
   deploy-sql:
-    runs-on: self-hosted  # Because you're using your own machine as the runner
+    runs-on: self-hosted  # Using your own machine as the runner
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Run SQL Scripts on Local SQL Server (Windows Auth)
-        shell: powershell
+        shell: pwsh -ExecutionPolicy Bypass
         run: |
-          Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
           sqlcmd -S localhost\SQLEXPRESS -d testDB -E -i sql/create_table.sql

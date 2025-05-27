@@ -3,7 +3,7 @@ name: Deploy SQL Scripts
 on:
   push:
     branches:
-      - QA
+      - main
   workflow_dispatch:  # 👈 Enables manual run from GitHub UI
 
 jobs:
@@ -17,4 +17,4 @@ jobs:
       - name: Run SQL Scripts on Local SQL Server (Windows Auth)
         shell: powershell -ExecutionPolicy Bypass -Command "{0}"
         run: |
-          sqlcmd -S localhost\SQLEXPRESS -d QA -E -i sql_db/Tables/create_table.sql
+          sqlcmd -S localhost\SQLEXPRESS -d QA -E -i sql_db/create_table.sql

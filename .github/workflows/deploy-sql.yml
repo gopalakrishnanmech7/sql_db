@@ -3,7 +3,8 @@ name: Deploy SQL Scripts
 on:
   push:
     branches:
-      - main
+      - qa            # 👈 Trigger only on pushes to the 'qa' branch
+  workflow_dispatch:   # 👈 Allow manual runs (branch can be selected manually)
 
 jobs:
   deploy-sql:
@@ -12,8 +13,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          ref: qa      # 👈 Ensure the 'qa' branch is checked out
 
       - name: Run SQL Scripts on Local SQL Server (Windows Auth)
         shell: powershell -ExecutionPolicy Bypass -Command "{0}"
         run: |
-          sqlcmd -S localhost\SQLEXPRESS -d testDB -E -i sql/create_table.sql
+          sqlcmd -S localhost\SQLEXPRESS -d QA -E -i sql_db/Tables/create_table.sql

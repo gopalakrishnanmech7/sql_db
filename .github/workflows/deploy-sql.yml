@@ -3,7 +3,7 @@ name: Deploy SQL Scripts
 on:
   push:
     branches:
-      - main
+      - QA
   workflow_dispatch:  # 👈 Enables manual run from GitHub UI
 
 jobs:

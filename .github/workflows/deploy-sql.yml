@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # 👈 Enables manual run from GitHub UI
 
 jobs:
   deploy-sql:
